@@ -14,6 +14,8 @@ Adventure Explorer lets you navigate the fantastic world hidden in your file sys
  - Cast spells from any directory (if you found the SpellBook™️)
  - Sleep
  - Files auto-complete
- - Dynamic time system which let you explore your filesystem at any different condition
+ - Dynamic clock system which let you explore your filesystem at different times for unlimited replaying value*
  - Randomly picked descriptions based on your locations which stay the same across restarts
  - Immersive and definitely not distracting gameplay
+
+*not really unlimited
