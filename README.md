@@ -6,7 +6,7 @@ Adventure Explorer let you navigate the fantastic world hidden in your file syst
 
 <INSERT AWESOME GIF WITH GAMEPLAY HERE>
 
-## Features
+## Features
 
  - Browse from one directory to another
  - _Try_ to open files
