@@ -1,0 +1,6 @@
+*.hi
+*.o
+.stack-work
+.vscode
+.DS_store
+adventure-explorer
