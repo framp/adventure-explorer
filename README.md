@@ -2,7 +2,7 @@
 
 Browsing your filesystem hasn't been this exciting since Microsoft's Bob!
 
-Adventure Explorer let you navigate the fantastic world hidden in your file system.
+Adventure Explorer lets you navigate the fantastic world hidden in your file system.
 
 <INSERT AWESOME GIF WITH GAMEPLAY HERE>
 
