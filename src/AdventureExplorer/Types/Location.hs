@@ -4,7 +4,6 @@ import System.Environment (lookupEnv)
 import System.Directory (getCurrentDirectory, listDirectory, doesDirectoryExist)
 import System.FilePath (takeDirectory, takeBaseName, takeExtension, (</>))
 import Control.Lens ((^?), element)
-import Control.Monad (liftM)
 import Control.Monad.Extra (partitionM)
 import Data.List (intercalate, findIndex, (\\))
 import Data.List.Split (splitOn)
@@ -29,8 +28,8 @@ makeLocation :: IO Location
 makeLocation = do
   currentDirectory <- getCurrentDirectory
   (directories, files) <- getDirectoriesFiles currentDirectory
-  parentDirectories <- fromMaybe (return []) $ liftM snd <$> getDirectoriesFiles <$> getParentDirectory currentDirectory 
-  let currentDirectoryIndex = fromMaybe 0 $ findIndex ((==) $ takeBaseName currentDirectory) parentDirectories
+  parentDirectories <- getParentDirectories currentDirectory
+  let currentDirectoryIndex = fromMaybe (-1) $ findIndex ((==) $ takeBaseName currentDirectory) parentDirectories
   let previousDirectory = (</>) ".." <$> parentDirectories ^? element (currentDirectoryIndex-1)
   let nextDirectory = (</>) ".." <$> parentDirectories ^? element (currentDirectoryIndex+1)
   let books = filter (hasExtension bookExtensions) files
@@ -42,6 +41,8 @@ makeLocation = do
   where
     getDirectoriesFiles :: FilePath -> IO ([FilePath], [FilePath])
     getDirectoriesFiles dir = listDirectory dir >>= partitionM doesDirectoryExist
+    getParentDirectories :: FilePath -> IO [FilePath]
+    getParentDirectories = fromMaybe (return []) . ((fmap snd <$> getDirectoriesFiles) <$>) . getParentDirectory
     getParentDirectory :: FilePath -> Maybe FilePath
     getParentDirectory dir = iff ((/=) dir) $ takeDirectory dir
     hasExtension :: [String] -> String -> Bool 
@@ -70,6 +71,7 @@ describeLocation short user location = do
       , if (length boxesL > 0) then "or OPEN (open) one of the boxes: " ++ (intercalate ", " boxesL) ++ "\n" else "" 
       , if spellBookL then "or STEAL (steal) the spell book\n" else ""
       , if spellBookU then "or CAST (cast) a spell\n" else "" 
+      , "or WAIT (wait) to kill time at this location\n"
       , "or SLEEP (sleep) to quit this world for a bit.\n" 
       , (intercalate "" $ replicate 64 "=") ++ "\n" ]
   where 

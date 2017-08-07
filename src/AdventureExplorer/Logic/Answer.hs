@@ -21,6 +21,10 @@ processAnswer user location (command, argument) =
         setCurrentDirectory argument
         putStrLn $ describe (currentPathL ++ argument) gotoDescriptions ++ argument ++ " @ " ++ (show newTime)
         return (newUser, not short, not quit)
+    "wait"  ->  do
+        let newTime = nextTime timeU
+        putStrLn $ describe (currentPathL ++ argument) waitDescriptions ++  " @ " ++ currentPathL ++ " until " ++ (show newTime)
+        return (user, not short, not quit)
     "look"  -> requireFile argument $ do
       putStrLn $ describe (currentPathL ++ argument) pictureDescriptions
       return (user, short, not quit)
