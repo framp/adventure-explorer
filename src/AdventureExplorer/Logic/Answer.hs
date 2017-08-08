@@ -23,8 +23,9 @@ processAnswer user location (command, argument) =
         return (newUser, not short, not quit)
     "wait"  ->  do
         let newTime = nextTime timeU
+        let newUser = User randomnessU newTime spellbookU
         putStrLn $ describe (currentPathL ++ argument) waitDescriptions ++  " @ " ++ currentPathL ++ " until " ++ (show newTime)
-        return (user, not short, not quit)
+        return (newUser, not short, not quit)
     "look"  -> requireFile argument $ do
       putStrLn $ describe (currentPathL ++ argument) pictureDescriptions
       return (user, short, not quit)
