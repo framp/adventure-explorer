@@ -2,23 +2,38 @@ module AdventureExplorer.Types.User where
 
 import System.Random (getStdRandom, random)
 import Data.Time (ZonedTime, getZonedTime, timeOfDayToDayFraction, localTimeOfDay, zonedTimeToLocalTime)
+import System.Directory (doesFileExist, getAppUserDataDirectory, createDirectoryIfMissing)
+import System.FilePath (takeDirectory)
 
-data Time = Morning | Afternoon | Night
+data Time = Morning | Afternoon | Night deriving (Show, Read)
 
 data User = User
   { randomness :: Int
   , time :: Time
-  , spellBookFound :: Bool } deriving (Show)
+  , spellBookFound :: Bool } deriving (Show, Read)
   
 nextTime :: Time -> Time
 nextTime Morning = Afternoon
 nextTime Afternoon = Night
 nextTime Night = Morning
 
-instance Show Time where
-  show Morning = "morning"
-  show Afternoon = "afternoon"
-  show Night = "night"
+configurationFile :: String
+configurationFile = "adventure-explorer/main.conf"
+
+initUser :: IO User
+initUser = do 
+  path <- getAppUserDataDirectory configurationFile
+  exists <- doesFileExist path
+  if exists 
+    then read <$> (readFile path)
+    else makeUser >>= persistUser
+
+persistUser :: User -> IO User
+persistUser user = do
+  path <- getAppUserDataDirectory configurationFile
+  createDirectoryIfMissing True $ takeDirectory path
+  writeFile path $ show user 
+  return user
 
 makeUser :: IO User
 makeUser = do

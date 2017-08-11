@@ -39,6 +39,7 @@ processAnswer user location (command, argument) =
       if spellBookL then do 
         putStrLn $ describe currentPathL spellBookDescriptions
         let newUser = User randomnessU timeU True
+        persistUser newUser
         return (newUser, short, not quit)
       else do
         putStrLn $ describe currentPathL cantDescriptions
@@ -46,6 +47,7 @@ processAnswer user location (command, argument) =
     "sleep" -> do
       putStrLn $ describe currentPathL sleepDescriptions
       let newUser = User randomnessU Morning spellbookU
+      persistUser newUser
       return (newUser, short, quit)
     "cast" -> do
       run (shell argument)

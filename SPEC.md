@@ -17,9 +17,5 @@
  - Going to sleep brings you out of the game and saves the story
  - Time, skipping half a day at every change of location
  - go command should be invokable with directions
-
- # TODO:
-
  - Random id for user on first start
  - Save user on file
- - Finish descriptions
