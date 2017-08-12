@@ -1,10 +1,19 @@
+![adv-exp](http://i.imgur.com/fYHLVoO.png)
+
 # adventure-explorer
 
 Browsing your filesystem hasn't been this exciting since Microsoft's Bob!
 
 Adventure Explorer lets you navigate the fantastic world hidden in your file system.
 
-<INSERT AWESOME GIF WITH GAMEPLAY HERE>
+<INSERT AWESOME GIF WITH GAMEPLAY HERE - WHICH IS INEVITABLY TOO LONG>
+ 
+## Run it
+You'll need [stack](https://docs.haskellstack.org/en/stable/README/) because if you want to experience true adventure you shouldn't expect a binary.
+
+```
+stack build && stack exec adventure-explorer
+```
 
 ## Features
 
